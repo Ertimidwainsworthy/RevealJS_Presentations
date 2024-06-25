@@ -1,0 +1,120 @@
+h1 {
+	font-size: 5rem !important;
+}
+
+h2{
+	font-size: 4rem !important;
+}
+
+figure {
+}
+
+figure > img {
+	
+}
+
+figcaption {
+	text-align: center;
+	font-size: medium;
+}
+
+
+li:has(>.qr-code) {
+	display: flex;
+	justify-content: space-between;
+	vertical-align: middle;
+}
+
+.qr-code {
+	right: 10vw;
+	height: 20vh;
+	margin: 0;
+	padding: 0;
+}
+
+.title {
+	font-style: italic;
+}
+
+.subtitle {
+	font-size: 3rem;
+}
+
+#sources {
+	font-size: larger !important;
+}
+
+#linklist {
+	width: 100%;
+	font-size: x-large;
+}
+
+.reveal .slides section .fragment.underline {
+	opacity: 1;
+	visibility: visible;
+	color: inherit;
+	text-decoration: none;
+	background: linear-gradient(currentColor, currentColor) 0% 100% no-repeat;
+	background-size: 0% 2px;
+	transition: background-size .3s linear;
+}
+
+.reveal .slides section .fragment.underline.visible {
+	background-size: 100% 2px;
+}
+
+.reveal .slides section .fragment.underline-blue {
+	opacity: 1;
+	visibility: visible;
+	color: inherit;
+	text-decoration: none;
+	background: linear-gradient(MidnightBlue, Midnightblue) 0% 100% no-repeat;
+	background-size: 0% 2px;
+	transition: background-size .3s linear;
+}
+
+.reveal .slides section .fragment.underline-blue.visible {
+	background-size: 100% 2px;
+}
+
+.reveal .slides section .fragment.underline-red {
+	opacity: 1;
+	visibility: visible;
+	color: inherit;
+	text-decoration: none;
+	background: linear-gradient(Maroon, Maroon) 0% 100% no-repeat;
+	background-size: 0% 2px;
+	transition: background-size .3s linear;
+}
+
+.reveal .slides section .fragment.underline-red.visible {
+	background-size: 100% 2px;
+}
+
+.reveal .slides section .fragment.underline-green {
+	opacity: 1;
+	visibility: visible;
+	color: inherit;
+	text-decoration: none;
+	background: linear-gradient(SeaGreen, SeaGreen) 0% 100% no-repeat;
+	background-size: 0% 2px;
+	transition: background-size .3s linear;
+}
+
+.reveal .slides section .fragment.underline-green.visible {
+	background-size: 100% 2px;
+}
+
+.reveal .slides section .fragment.underline-yellow {
+	opacity: 1;
+	visibility: visible;
+	color: inherit;
+	text-decoration: none;
+	background: linear-gradient(GoldenRod, GoldenRod) 0% 100% no-repeat;
+	background-size: 0% 2px;
+	transition: background-size .3s linear;
+}
+
+.reveal .slides section .fragment.underline-yellow.visible {
+	background-size: 100% 2px;
+}

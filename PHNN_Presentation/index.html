@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Pseudo-Hamiltonian Neural Networks for Learning Partial Differential Equations</title>
+
+		<link rel="stylesheet" href="../dist/reset.css">
+		<link rel="stylesheet" href="../dist/reveal.css">
+		<link rel="stylesheet" href="../dist/theme/serif.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="../plugin/highlight/monokai.css">
+
+		<link rel="stylesheet" href="../css/PHNN_style.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section><h1><span class="title">Pseudo-Hamiltonian <br> Neural Networks <br>for Learning Partial Differential Equations</span> <br> <span class="subtitle">by Sølve Eidnes & Kjetil Olsen Lye</span></h1></section>
+				<section><h2>Outline:</h2>
+					<ol>
+						<li>Understanding the Title—Background</li>
+						<li>Eidnes & Lye—Contributions of the paper</li>
+						<li>Results, Applications, & Critique—Examples and conclusion</li>
+					</ol>
+				</section>
+				<section>
+					<section data-auto-animate><h1>Chapter I:</h1> <h1>Understanding the Title</h1></section>
+					<section data-auto-animate>
+						<h1 style="font-size: 3rem !important;">Understanding the Title</h1>
+						<p><span class="fragment underline-red" data-fragment-index="2">Pseudo-<span class="fragment underline-blue" data-fragment-index="1">Hamiltonian</span></span> <span class="fragment underline-green" data-fragment-index="3">Neural Networks</span> for Learning <span class="fragment underline-yellow" data-fragment-index="4">Partial Differential Equations</span></p>
+					</section>
+				</section>
+				<section>
+					<section>Hamilton for Hamiltonians</section>
+					<section data-auto-animate>
+						<h3>Hamiltonian formalism</h3>
+						<p>The Hamiltonian expresses the dynamics of a physical system in terms of a preserved quantity, usually energy.</p>
+						\[\frac{\partial \mathcal L}{\partial \boldsymbol{q}} - \frac{d}{dt}\frac{\partial \mathcal L}{\partial \boldsymbol{\dot q}} = 0 \Rightarrow \frac{\mathrm{d}\boldsymbol{q}}{\mathrm{d}t} = \frac{\partial \mathcal H}{\partial \boldsymbol{p}},\quad
+						\frac{\mathrm{d}\boldsymbol{p}}{\mathrm{d}t} = -\frac{\partial \mathcal H}{\partial \boldsymbol{q}}  \]
+					</section>
+					<section data-auto-animate>
+						<h3>Hamiltonian formalism</h3>
+						<p>The Hamiltonian expresses the dynamics of a physical system in terms of a preserved quantity, usually energy.</p>
+						\[\frac{\partial \mathcal L}{\partial \boldsymbol{q}} - \frac{d}{dt}\frac{\partial \mathcal L}{\partial \boldsymbol{\dot q}} = 0 \Rightarrow \frac{\mathrm{d}\boldsymbol{q}}{\mathrm{d}t} = \frac{\partial \mathcal H}{\partial \boldsymbol{p}},\quad
+						\frac{\mathrm{d}\boldsymbol{p}}{\mathrm{d}t} = -\frac{\partial \mathcal H}{\partial \boldsymbol{q}}  \]
+					</section>
+				</section>
+				<section>
+					<section><h2>Port-Hamiltonian & <br> Pseudo-Hamiltonian Formalisms</h2></section>
+					<section data-auto-animate>
+						<h3>
+							<span id="mod-title">Canonical Hamiltonian System</span>
+						</h3>
+						<p id="phss_eq">\(\dot{x} = \nabla \mathcal{H}(x)\)</p>
+					</section>
+					<section data-auto-animate>
+						<h3>Non-
+							<span id="mod-title">Canonical Hamiltonian System</span>
+						</h3>
+						<p id="phss_eq">\(\dot{x} = S(x) \nabla \mathcal{H}(x)\)</p>
+						<aside class="notes">$S$ exists so long as $\mathcal{H}$ is invariant of the ODE $\dot{x}=g(x)$ (Eidnes et al. 2)</aside>
+					</section>
+					<section data-auto-animate>
+						<h3>The Pseudo-Hamiltonian System</h3>
+						<p id="phss_eq">\( \dot{x} = (S(x)-R(x))\nabla \mathcal{H}(x) + f(x,t) \)</p>
+						<aside class="notes">$S$ is often $J$, $f$ is often in control contexts $Bu$, representing a control(ed force)</aside>
+					</section>
+					<section data-auto-animate>
+						<h3>The Pseudo-Hamiltonian System</h3>
+						<p id="phss_eq">\( \dot{x} = (S(x)-R(x))\nabla \mathcal{H}(x) + f(x,t) \)</p>
+						<p>"Storage" $S$ skew-symmetric: $S(x)=-S(x)^T$</p>
+						<p>"Resistance" $R$ positive semi-definite: $y^TR(x)y \geq 0$</p>
+						<p>External forces $f$</p>
+						<aside class="notes">The authors (Eidnes et al. 2023) coin this term as a "generalization of the port-Hamiltonian systems of van der Schaft", without a specific structure for $f$, to consider "controlled systems, dissipative systems, and port-Hamiltonian system descriptions, generalizing to situations without exact energy preservation."</aside>
+					</section>
+				</section>
+				<section>
+					<section><h2>Neural Networks at a Glance</h2></section>
+					<section><h3>Architechture of a Neural Network:</h3>
+					<ul>
+						<li>Composed of layers of simple functions—virtual neruons—nested to enable fine-tuned approximation of complex functions</li>
+						<li>Can be represented with large tensors</li>
+						<li>Output is measured against loss function, and backpropigation adjusts neuron weights to improve predition</li>
+					</ul></section>
+					<section data-auto-animate><h3>Key Takeaways:</h3>
+					<ul>
+						<li class="fragment fade-up">Universal Approximation Theorems show that network of simple functions can approximate arbitrary funtions</li>
+						<li class="fragment fade-up">The loss function determines what is learned</li>
+						<li class="fragment fade-up">Convolutional layers resemble finite difference approximations</li>
+					</ul>
+					</section>
+					<section data-auto-animate><h3>Key Takeaways:</h3>
+						<ul>
+							<li>The loss function determines what is learned</li>
+							<p class="fragment fade-up">$\Rightarrow$ Use a Hamilton to learn a physical system (Greydanus, Dzamba, Yosinski)</p>
+							<li>Convolutional layers resemble finite difference approximations</li>
+							<p class="fragment fade-up">Compare \((u*w)(x_i) \coloneqq \sum\limits_{j=-r}^s w_j u(x_i-j)\) and \(\frac{d^n u(x_i)}{dx^n} \approx \sum\limits_{j=-r}^s a_j u(x_i-j)\)<br>(Eidnes & Lye)</p>
+						</ul>
+						<aside class="notes">With an appropriate NN, this allows us to learn PDEs and keep them physically plausible. Note: For convolution, $r,s\geq 0$</aside>
+					</section>
+				</section>
+				<section>
+					<section><h2>The Hamilton Neural Network</h2>
+					<p>(Greydanus, Dzamba, Yosinski)</p></section>
+					<section>
+						<p>Problem: How to learn system dynamics from (noisy) data?</p>
+						<p class="fragment fade-up">Insight: Leverage general knowledge of physics and set general Hamiltonian as loss function</p>
+						<blockquote class="fragment fade-up">Instead of crafting the Hamiltonian by hand, we propose parameterizing it with a neural network and then learning it directly from data. <br> <cite style="text-align: right;">—(Greydanus, Dzamba, Yosinski)</cite></blockquote>
+						<aside class="notes">ML in general can be vulnerable to noise depending on method, and training NN well might entail already knowing Hamiltonian</aside>
+					</section>
+					<section>
+						<p>Loss function: <br> \(\mathcal{L}_{HNN} = \left\Vert \frac{\partial\mathcal{H}_\theta}{\partial\bm{p}} - \frac{\partial\bm{q}}{\partial t}\right\Vert_2 + \left\Vert \frac{\partial\mathcal{H}_\theta}{\partial\bm{q}} - \frac{\partial\bm{p}}{\partial t}\right\Vert_2 \)</p>
+						<figure> <img src="Images/overall-idea.png" alt=""><figcaption>Source: (Greydanus, Dzamba, Yosinski)</figcaption></figure>
+						<aside class="notes">This example is of an idealized mass-spring system</aside>
+					</section>
+					<section>
+						<h3>Applications using image data</h3>
+						<figure><img src="Images/pend-compare.gif" alt=""></figure>
+						<figure><img src="Images/addenergy-static.png" alt=""></figure>
+					</section>
+					<section>
+						<figure><img src="Images/orbits-compare.gif" alt=""><figcaption>Source: (Greydanus, Dzamba, Yosinski)</figcaption></figure>
+						<p>Paper and code available at: https://greydanus.github.io/2019/05/15/hamiltonian-nns/ (will repeat at end of lecture)</p>
+					</section>
+				</section>
+				<section><h3>Pseudo-Hamiltonian Neural Networks</h3>
+				<p>Eidnes, Stastik, Sterud, Bøhn, Riemer-Sørensen (2023)</p></section>
+				<section><h1>Chapter II: <br> Eidnes & Lye</h1></section>
+				<section>innovtion of separating learnin f and H</section>
+				<section>
+					<section><h2>Extending the Framework to Partial Differential Equations</h2></section>
+					<section>
+						<h3 id="mod-title">The ODE Case</h3>
+						<p id="pde_eq">\( \dot{x} = (S(x)-R(x))\nabla \mathcal{H}(x) + f(x,t) \)</p>
+					</section>
+					<section>
+						<h3 id="mod-title">The PDE Case</h3>
+						<p id="pde_eq">\( u_t = S(u^a, x)\frac{\delta\mathcal{H}}{\delta u}[u]-R(u^a, x)\frac{\delta \mathcal{V}}{\delta u}[u] + f(u^a,x,t) \)</p>
+						<aside class="notes">E&L note that other than $f$, this would be a metriplectic PDE, and with different conditions would be the GENERIC formalism in thermodynamics. (Eidnes & Lye 5)</aside>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h3>PHNN model for PDEs:</h3>
+						\(\hat{g}_\theta (u,x,t) = (\hat{A}_\theta^{[k_1]})^{-1} \left(\hat{S}_\theta^{[k_2]} \nabla \hat{\mathcal{H}}_\theta(u) - \hat{R}_\theta^{[k_3]} \nabla\hat{\mathcal{V}}(u) + k_4 \hat{f}_\theta(u,x,t) \right)\)
+						<aside class="notes">$k_i$ denote kernel sizes, $k_4\in{0,1}$ includes external force or not</aside>
+					</section>
+				</section>
+				<section>
+					<section><h2>Spacial discretization</h2></section>
+					<section><h3>Approximating the $L_2$ Inner Product</h3>
+					<p>\(\langle u,v \rangle = \int_\Omega u(x)v(x)dx \approx \sum_i=0^M \kappa_i u(x_i)v(x_i) = u^T diag(\kappa)v \eqqcolon \langle u,v \rangle _\kappa\)</p>
+					<aside class="notes">One has to assume the existence of a "consistent approximation $\mathcal{H}_p(\bm{u})$ to $\mathcal{H}[u]$"</aside>
+				</section>
+				</section>
+				<section><h1>Chapter III: <br> Results, Applications, & Critique</h1></section>
+				<section>
+					<ul>
+						<li>HNNs can learn physical systems better than conventional NNs</li>
+						<li>Port-(Pseudo-)Hamiltonian approach allows extension to systems with dissipation and external forces while keeping benefits</li>
+						<li>PHNNs can learn ODEs and be extended to PDEs</li>
+					</ul>
+				</section>
+				<section>
+					<h1 id="sources">Sources and Further Reading</h1>
+					<ul id="linklist">
+						<li><span><span class="title">Hamiltonian Neural Networks</span>, <br> Greydanus, Dzamba, Yosinski (2019) <br> <a href="https://greydanus.github.io/2019/05/15/hamiltonian-nns/">https://greydanus.github.io/2019/05/15/hamiltonian-nns/</a></span><img class="qr-code" src="Images/HNN_qr-code.png" alt=""></li>
+
+						<li><span><span class="title">Pseudo-Hamiltonian Neural Networks with State-Dependent External Forces</span>, <br> Eidnes et al. (2023) <br> <a href="https://arxiv.org/pdf/2206.02660">https://arxiv.org/pdf/2206.02660</a> </span><img class="qr-code" src="Images/PHNN_qr-code.png" alt=""></li>
+
+						<li><span><span class="title">Pseudo-Hamiltonian Neural Networks for learning partial differential equations</span>, <br> Eidnes and Lye (2024) <br> <a href="https://arxiv.org/pdf/2304.14374">https://arxiv.org/pdf/2304.14374</a></span> <img class="qr-code" src="Images/PHNN4PDE_qr-code.png" alt=""></li>
+
+						<li><span>phlearn Python package, <br> Sterud et al. (2023–4) <br> <a href="https://github.com/SINTEF/pseudo-hamiltonian-neural-networks">https://github.com/SINTEF/pseudo-hamiltonian-neural-networks</a></span><img class="qr-code" src="Images/phlearn_qr-code.png" alt=""></li>
+
+						<li><u>This presentation:</u></li>
+					</ul>
+				</section>
+			</div>
+		</div>
+
+		<script src="../dist/reveal.js"></script>
+		<script src="../plugin/notes/notes.js"></script>
+		<script src="../plugin/markdown/markdown.js"></script>
+		<script src="../plugin/highlight/highlight.js"></script>
+		<script src="../plugin/math/math.js"></script>
+		<script src="../plugin/manim/manim.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX, RevealManim ]
+			});
+		</script>
+	</body>
+</html>
