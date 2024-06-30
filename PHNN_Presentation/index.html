@@ -34,14 +34,8 @@
 					</section>
 				</section>
 				<section>
-					<section>Hamilton for Hamiltonians</section>
-					<section data-auto-animate>
-						<h3>Hamiltonian formalism</h3>
-						<p>The Hamiltonian expresses the dynamics of a physical system in terms of a preserved quantity, usually energy.</p>
-						\[\frac{\partial \mathcal L}{\partial \boldsymbol{q}} - \frac{d}{dt}\frac{\partial \mathcal L}{\partial \boldsymbol{\dot q}} = 0 \Rightarrow \frac{\mathrm{d}\boldsymbol{q}}{\mathrm{d}t} = \frac{\partial \mathcal H}{\partial \boldsymbol{p}},\quad
-						\frac{\mathrm{d}\boldsymbol{p}}{\mathrm{d}t} = -\frac{\partial \mathcal H}{\partial \boldsymbol{q}}  \]
-					</section>
-					<section data-auto-animate>
+					<section><h2>Hamilton for Hamiltonians</h2></section>
+					<section>
 						<h3>Hamiltonian formalism</h3>
 						<p>The Hamiltonian expresses the dynamics of a physical system in terms of a preserved quantity, usually energy.</p>
 						\[\frac{\partial \mathcal L}{\partial \boldsymbol{q}} - \frac{d}{dt}\frac{\partial \mathcal L}{\partial \boldsymbol{\dot q}} = 0 \Rightarrow \frac{\mathrm{d}\boldsymbol{q}}{\mathrm{d}t} = \frac{\partial \mathcal H}{\partial \boldsymbol{p}},\quad
@@ -51,30 +45,30 @@
 				<section>
 					<section><h2>Port-Hamiltonian & <br> Pseudo-Hamiltonian Formalisms</h2></section>
 					<section data-auto-animate>
-						<h3>
-							<span id="mod-title">Canonical Hamiltonian System</span>
+						<h3 class="fragment omission-wide" data-fragment-index="6"><span class="fragment insertion" data-fragment-index="1">Non-</span>Canonical</h3><h3><span class="fragment insertion" data-fragment-index="7">Pseudo-</span>Hamiltonian System
 						</h3>
-						<p id="phss_eq">\(\dot{x} = \nabla \mathcal{H}(x)\)</p>
+						<p>\(\dot{x} = \)<span class="fragment omission" data-fragment-index="1">$J$</span> <span class="fragment insertion" data-fragment-index="3">$($</span><span class="fragment insertion" data-fragment-index="1">$S(x)$</span><span class="fragment insertion" data-fragment-index="3">$-R(x))$</span> \(\nabla \mathcal{H}(x)\)<span class="fragment insertion" data-fragment-index="4">$+ f(x,t)$</span></p>							
+						<p class="fragment omission-wide" data-fragment-index="2">\(\left( \text{with } J = \begin{pmatrix} 0 & I_n \\ -I_n & 0 \end{pmatrix} \right)\)</p>
+						<p class="fragment insertion-wide" data-fragment-index="2">with $S\in\mathbb{R}^{2n\times 2n}$ skew-symmetric</p>
+						<aside class="notes">
+							<ul>
+								<li>$S$ is often $J$, $f$ is often in control contexts $Bu$, representing a control(ed force)</li>
+								<li>$S$ exists so long as $\mathcal{H}$ is invariant of the ODE $\dot{x}=g(x)$ (Eidnes et al. 2)</li>
+							</ul>
+						</aside>	
 					</section>
 					<section data-auto-animate>
-						<h3>Non-
-							<span id="mod-title">Canonical Hamiltonian System</span>
-						</h3>
-						<p id="phss_eq">\(\dot{x} = S(x) \nabla \mathcal{H}(x)\)</p>
-						<aside class="notes">$S$ exists so long as $\mathcal{H}$ is invariant of the ODE $\dot{x}=g(x)$ (Eidnes et al. 2)</aside>
-					</section>
-					<section data-auto-animate>
-						<h3>The Pseudo-Hamiltonian System</h3>
+						<h3>Pseudo-Hamiltonian System</h3>
 						<p id="phss_eq">\( \dot{x} = (S(x)-R(x))\nabla \mathcal{H}(x) + f(x,t) \)</p>
 						<aside class="notes">$S$ is often $J$, $f$ is often in control contexts $Bu$, representing a control(ed force)</aside>
 					</section>
 					<section data-auto-animate>
-						<h3>The Pseudo-Hamiltonian System</h3>
+						<h3>Pseudo-Hamiltonian System</h3>
 						<p id="phss_eq">\( \dot{x} = (S(x)-R(x))\nabla \mathcal{H}(x) + f(x,t) \)</p>
 						<p>"Storage" $S$ skew-symmetric: $S(x)=-S(x)^T$</p>
 						<p>"Resistance" $R$ positive semi-definite: $y^TR(x)y \geq 0$</p>
 						<p>External forces $f$</p>
-						<aside class="notes">The authors (Eidnes et al. 2023) coin this term as a "generalization of the port-Hamiltonian systems of van der Schaft", without a specific structure for $f$, to consider "controlled systems, dissipative systems, and port-Hamiltonian system descriptions, generalizing to situations without exact energy preservation."</aside>
+						<aside class="notes">The authors (Eidnes et al. 2023) coin this term as a "generalization of the port-Hamiltonian systems of van der Schaft", without a specific structure for $f$ (and so e.g. passivity preservation in CT), to consider "controlled systems, dissipative systems, and port-Hamiltonian system descriptions, generalizing to situations without exact energy preservation."</aside>
 					</section>
 				</section>
 				<section>
@@ -85,26 +79,26 @@
 						<li>Can be represented with large tensors</li>
 						<li>Output is measured against loss function, and backpropigation adjusts neuron weights to improve predition</li>
 					</ul></section>
-					<section data-auto-animate><h3>Key Takeaways:</h3>
+					<section data-auto-animate><h3>Key features:</h3>
 					<ul>
 						<li class="fragment fade-up">Universal Approximation Theorems show that network of simple functions can approximate arbitrary funtions</li>
 						<li class="fragment fade-up">The loss function determines what is learned</li>
 						<li class="fragment fade-up">Convolutional layers resemble finite difference approximations</li>
 					</ul>
 					</section>
-					<section data-auto-animate><h3>Key Takeaways:</h3>
+					<section data-auto-animate><h3>Key features:</h3>
 						<ul>
 							<li>The loss function determines what is learned</li>
-							<p class="fragment fade-up">$\Rightarrow$ Use a Hamilton to learn a physical system (Greydanus, Dzamba, Yosinski)</p>
+							<p class="fragment fade-up">$\Rightarrow$ Use a Hamiltonian to learn a physical system (Greydanus, Dzamba, Yosinski)</p>
 							<li>Convolutional layers resemble finite difference approximations</li>
-							<p class="fragment fade-up">Compare \((u*w)(x_i) \coloneqq \sum\limits_{j=-r}^s w_j u(x_i-j)\) and \(\frac{d^n u(x_i)}{dx^n} \approx \sum\limits_{j=-r}^s a_j u(x_i-j)\)<br>(Eidnes & Lye)</p>
+							<p class="fragment fade-up">Compare \((u*w)(x_i) \coloneqq \sum\limits_{j=-r}^s w_j u(x_{i-j})\) and \(\frac{d^n u(x_i)}{dx^n} \approx \sum\limits_{j=-r}^s a_j u(x_i-j)\)<br>(Eidnes & Lye)</p>
 						</ul>
 						<aside class="notes">With an appropriate NN, this allows us to learn PDEs and keep them physically plausible. Note: For convolution, $r,s\geq 0$</aside>
 					</section>
 				</section>
 				<section>
-					<section><h2>The Hamilton Neural Network</h2>
-					<p>(Greydanus, Dzamba, Yosinski)</p></section>
+					<section><h2 class="title">Hamiltonian Neural Networks</h2>
+					<p>Greydanus, Dzamba, Yosinski (2019)</p></section>
 					<section>
 						<p>Problem: How to learn system dynamics from (noisy) data?</p>
 						<p class="fragment fade-up">Insight: Leverage general knowledge of physics and set general Hamiltonian as loss function</p>
@@ -123,59 +117,212 @@
 					</section>
 					<section>
 						<figure><img src="Images/orbits-compare.gif" alt=""><figcaption>Source: (Greydanus, Dzamba, Yosinski)</figcaption></figure>
-						<p>Paper and code available at: https://greydanus.github.io/2019/05/15/hamiltonian-nns/ (will repeat at end of lecture)</p>
+						<p>Paper and code available at:<br> https://greydanus.github.io/2019/05/15/hamiltonian-nns/ (will repeat at end of lecture)</p>
 					</section>
 				</section>
-				<section><h3>Pseudo-Hamiltonian Neural Networks</h3>
-				<p>Eidnes, Stastik, Sterud, Bøhn, Riemer-Sørensen (2023)</p></section>
+				<section>
+					<section>
+						<h2 class="title">Pseudo-Hamiltonian neural networks with state-dependent external forces</h2>
+						<p>Eidnes, Stastik, Sterud, Bøhn, Riemer-Sørensen (2023)</p>
+						<aside class="notes">From SINTEF (Norway), authors: Sølve Eidnes
+							, Alexander J. Stasik, Camilla Sterud, Eivind Bøhn, Signe Riemer-Sørensen</aside>
+					</section>
+					<section>
+						<h3>Innovations:</h3>
+						<p class="equation_box">\( \dot{x} = (S(x)-R(x))\nabla \mathcal{H}(x) + f(x,t) \)</p>
+						<p>Eidnes et al. model $\mathcal{H}$ and $f$ with separate neural networks $\hat{\mathcal{H}}_\theta$ and $\hat{f}_\theta$ resp.</p>
+						<p>Therefore, they argue formulation is most useful for (possibly) state-dependent $f=f(x)$ and energy from damping $R$ vs. external forces $f$ not immediately sepearable, i.e. let NNs separate them.</p>
+						<aside class="notes">Eidnes et al. §2.3. They note separation in PH formulation not unique, so incorporating knowledge about structure may be useful</aside>
+					</section>
+				</section>
 				<section><h1>Chapter II: <br> Eidnes & Lye</h1></section>
-				<section>innovtion of separating learnin f and H</section>
 				<section>
 					<section><h2>Extending the Framework to Partial Differential Equations</h2></section>
 					<section>
-						<h3 id="mod-title">The ODE Case</h3>
+						<h3>The ODE Case</h3>
 						<p id="pde_eq">\( \dot{x} = (S(x)-R(x))\nabla \mathcal{H}(x) + f(x,t) \)</p>
 					</section>
-					<section>
-						<h3 id="mod-title">The PDE Case</h3>
-						<p id="pde_eq">\( u_t = S(u^a, x)\frac{\delta\mathcal{H}}{\delta u}[u]-R(u^a, x)\frac{\delta \mathcal{V}}{\delta u}[u] + f(u^a,x,t) \)</p>
-						<aside class="notes">E&L note that other than $f$, this would be a metriplectic PDE, and with different conditions would be the GENERIC formalism in thermodynamics. (Eidnes & Lye 5)</aside>
+					<section data-auto-animate="">
+						<h3>The PDE Case</h3>
+						<p ><span id="pde_eq" class="equation_box fit_equation">\( u_t = S(u^a, x)\frac{\delta\mathcal{H}}{\delta u}[u]-R(u^a, x)\frac{\delta \mathcal{V}}{\delta u}[u] + f(u^a,x,t) \)</span></p>
+						<p class="fragment">where $\mathcal{H}[\cdot],\mathcal{V}[\cdot]$ here spacial integrals of the form <br> \(\mathcal{H}[u]=\int\limits_\Omega \mathcal{H}(x,u,u_x)\)</p>
+						<aside class="notes">!Can skip following. 
+						<br> Again, $S$ skew-symmetric, $R$ pos. semi-def. w.r.t. $L^2$ inner product. E&L note that other than $f$, this would be a metriplectic PDE, and with different conditions would be the GENERIC formalism in thermodynamics. (Eidnes & Lye 5) $\mathcal{V}$ introdued to generalise to inf.-dim. systems.</aside>
+					</section>
+					<section data-auto-animate="">
+						<h3 >The PDE Case</h3>
+						<p ><span id="pde_eq" class="equation_box fit_equation">\( u_t = S(u^a, x)\frac{\delta\mathcal{H}}{\delta u}[u]-R(u^a, x)\frac{\delta \mathcal{V}}{\delta u}[u] + f(u^a,x,t) \)</span></p>
+						<p>For $\mathcal{V}=0, f=0$, class of integral-preserving PDEs</p>
+						<p>+$S$ satisfies Jacobi identity $\Rightarrow \mathcal{H}$ is Hamiltonian </p>
+						<aside class="notes">"integral-preserving": with appropriate, e.g. periodic, boundary conditions, preserves integral $\mathcal{H}$, because of skew-symmetry of $S$</aside>
+					</section>
+					<section data-auto-animate="">
+						<h3>The PDE Case</h3>
+						<p ><span id="pde_eq" class="equation_box fit_equation">\( u_t = S(u^a, x)\frac{\delta\mathcal{H}}{\delta u}[u]-R(u^a, x)\frac{\delta \mathcal{V}}{\delta u}[u] + f(u^a,x,t) \)</span></p>
+						<p>$\mathcal{H} = 0, f = 0, \mathcal{V}\geq 0 \Rightarrow$ integral $\mathcal{V}$ will dissipate, $\mathcal{V}$ Lyapunov function</p>
+						<aside class="notes"></aside>
 					</section>
 				</section>
 				<section>
 					<section>
 						<h3>PHNN model for PDEs:</h3>
-						\(\hat{g}_\theta (u,x,t) = (\hat{A}_\theta^{[k_1]})^{-1} \left(\hat{S}_\theta^{[k_2]} \nabla \hat{\mathcal{H}}_\theta(u) - \hat{R}_\theta^{[k_3]} \nabla\hat{\mathcal{V}}(u) + k_4 \hat{f}_\theta(u,x,t) \right)\)
-						<aside class="notes">$k_i$ denote kernel sizes, $k_4\in{0,1}$ includes external force or not</aside>
+						<p><span class="equation_box fit_equation">\(\hat{g}_\theta (u,x,t) = (\hat{A}_\theta^{[k_1]})^{-1} \left(\hat{S}_\theta^{[k_2]} \nabla \hat{\mathcal{H}}_\theta(u) - \hat{R}_\theta^{[k_3]} \nabla\hat{\mathcal{V}}(u) + k_4 \hat{f}_\theta(u,x,t) \right)\)</span></p>
+						<p>with loss function: <br> <span class="fit_equation">\(\mathcal{L}_{g_\theta}(\{(u^{j_n},u^{j_n+1},t^{j_n})\}_{n=1}^{N}) = \frac{1}{N} \sum\limits_{n=1}^N \left\vert \frac{u^{j_{n+1}}-u^{j_n}}{\Delta t} - \hat{g}_\theta \left( \frac{u^{j_n}-u^{j_{n+1}}}{2}, x, \frac{t^{j_n}-t^{j_{n+1}}}{2} \right) \right\vert^2\)</span></p>
+						<aside class="notes">$A$ symmetric pos. semi-def. operator, $k_i$ denote kernel sizes—usually 1 or 3— $k_4\in{0,1}$ includes external force or not. Loss function trains (mostly) according to implicit midpoint method, but any mono-implicit integrator possible; forward fin.-diff. equivalent to forward Euler often used elsewhere, cited sources propose more efficient methods.</aside>
+					</section>
+					<section>
+						<p>For paper, authors make following restrictions for uniqueness:
+							<ul> 
+								<li>$S$ and $R$ linear, independent of $x$ and $u$</li>
+								<li>$R$ symmetric</li>
+								<li>$f$ independent of derivatives of $u$</li>
+								<li>Symm. pos. semi-def. operator $A$ commutes with $R,S$, redefine $R\coloneqq AR, S\coloneqq AS, f\coloneqq Af$</li>
+							</ul></p>
+						<p>$\Rightarrow$ discretisation of $A,S,R$ can be viewed as discrete convolution operators</p>
 					</section>
 				</section>
 				<section>
+					<section data-auto-animate><h2>Implementation</h2></section>
+					<section data-auto-animate><h2>Implementation</h2>
+						<p>Each component of PDE can be learned separately—up to 6 models with individual considerations: $\hat{\mathcal{H}}_\theta, \hat{\mathcal{V}}_\theta,\hat{A}_\theta^{[k_1]},\hat{S}_\theta^{[k_2]}, \hat{R}_\theta^{[k_3]},\hat{f}_\theta$</p>
+						<p>Some assumptions about $R$ need to be made to avoid leakage, in case it is a linear combination of the identity with differential operators</p>
+						<aside class="notes">Here, kernel size for $\hat{\mathcal{H}}_\theta, \hat{\mathcal{V}}_\theta$ is 2, as first derivative is highest derivative; further derivatives would require larger kernel sizes, and padding input elements. Likewise, other kernels of size M, # of spacial discretisation points, sufficient.</aside>
+					</section>
 					<section><h2>Spacial discretization</h2></section>
 					<section><h3>Approximating the $L_2$ Inner Product</h3>
-					<p>\(\langle u,v \rangle = \int_\Omega u(x)v(x)dx \approx \sum_i=0^M \kappa_i u(x_i)v(x_i) = u^T diag(\kappa)v \eqqcolon \langle u,v \rangle _\kappa\)</p>
-					<aside class="notes">One has to assume the existence of a "consistent approximation $\mathcal{H}_p(\bm{u})$ to $\mathcal{H}[u]$"</aside>
+					<p class="fit_equation">\(\langle u,v \rangle = \int_\Omega u(x)v(x)dx \approx \sum\limits_{i=0}^M \kappa_i u(x_i)v(x_i) = u^T diag(\kappa)v \eqqcolon \langle u,v \rangle _\kappa\)</p>
+					<aside class="notes">$\kappa$ are quadrature weights. One has to assume the existence of a "consistent approximation $\mathcal{H}_p(\bm{u})$ to $\mathcal{H}[u]$".</aside>
 				</section>
+				</section>
+				<section>
+					<section>
+						<h3>Training algorithm</h3>
+						<ul class="algorithmic">
+							<li>Data: Observations \(D = \{(t_1,\vec{x}^1,\vec{u}^1),\ldots,(t_N,\vec{x}^N,\vec{u}^N)\}\)</li>
+							<li>Data: Number of epochs $K$</li>
+							<li>Data: Batch size $M_b$</li>
+							<li>Data: Initial CNN \(\hat{\mathcal{H}}_\theta, \hat{\mathcal{V}}_\theta\)</li>
+							<li>Data: Initial DNN $\hat{f}_\theta$</li>
+							<li>Data: Matrices \(\hat{A}_{\theta}^{[k_{1}]}, \hat{S}_{\theta}^{[k_{2}]}, \hat{R}_{\theta}^{[k_{3}]}\)</li>
+							<li>Data: $g_\theta$ defined as above</li>
+							<li>Data: Loss function $\mathcal{L}_{g_\theta}$ defined as above</li>
+							<li>Result: Parameters $\theta$ for $g_\theta$</li>
+							<ul class="algorithmic">For $k$ in $\{1...K\}$ do:
+								<ul class="algorithmic">For $batch$ in $Batches$ do:
+									<li>\[B\coloneqq \{(u^{j_m},u^{j_m+1},t^{j_m})\}_{m=1}^{M_b}\leftarrow\text{DrawRandomBatch}(D,M_b)\]</li>
+									<li>Step using \(\mathcal{L}_{g_{\theta}}(B)\)</li>
+									end
+								</ul>
+								end
+							</ul>
+						</ul>
+					</section>
+					<section>
+						<h3>Performance:</h3>
+						<figure><img src="Images/phnn_vs_baseline_kdv.png"><figcaption>PHNN models' predictions of KdV equation compared with authors' baseline NN, DGNet, and PDE-FIND, where kernel sizes are $k=[3,3,3,1]$ and "informed" model knows $A,S,R$ and dependencies of $\hat{f}_\theta$.</figcaption></figure>
+						<aside class="notes">That is the Koerteweg-De Vries equation</aside>
+					</section>
+					<section>
+						<h3>Python package:</h3>
+						<iframe frameborder="0" allow="clipboard-write" src="https://emgithub.com/iframe.html?target=https%3A%2F%2Fgithub.com%2FSINTEF%2Fpseudo-hamiltonian-neural-networks%2Fblob%2Fmain%2Fexample_scripts%2Fkdv_example.ipynb&style=default&type=ipynb&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on"></iframe>
+					</section>
 				</section>
 				<section><h1>Chapter III: <br> Results, Applications, & Critique</h1></section>
 				<section>
+					<h2>Features:</h2>
 					<ul>
 						<li>HNNs can learn physical systems better than conventional NNs</li>
 						<li>Port-(Pseudo-)Hamiltonian approach allows extension to systems with dissipation and external forces while keeping benefits</li>
 						<li>PHNNs can learn ODEs and be extended to PDEs</li>
+						<li>Separation into "meaningful physical interpretations" and allows individual alterations of parts</li>
+						<li>Could detect "unknown external forces"</li>
 					</ul>
+					<aside class="notes">4–5: Eidnes et al. §4.5</aside>
+				</section>
+				<section>
+					<h2>Limitations:</h2>
+					<ul>
+						<li>Some knowledge about system necessary, and more improves results</li>
+						<li>Lack of unique separability of internal dynamics and external forces in PH formulation means no guarantees of accuracy in general</li>
+						<li>Conventional NN seem to model (uncontrolled) dissipation; precise benefits of PHNN could be investigated more thoroughly</li>
+						<li>PHNN "highly senstitive to […] initialized parameters"; suggestion: train many models and select convergent ones</li>
+					</ul>
+					<aside class="notes">1–2: Eidnes et al. §4.5</aside>
+				</section>
+				<section>
+					<section data-auto-animate>
+						<h2>Existing applications</h2>
+						<ul>
+							<li>Modelling physical systems; starting with general formulation and iterating with gained knowledge</li>
+							<li>Image denoising, with e.g. heat or Perona-Malik equations</li>
+							<li>Phase separation, pattern formation from images with Cahn-Hilliard or Allen-Cahn equations</li>
+						</ul>
+						<div class="double-figure">
+							<figure><img src="Images/Perona-Malik_Diffusion_Tebini_Mbarki_Seddik_Braiek.jpg"><figcaption>Perona-Malik anisotropic diffusion. Source: <a href="https://www.researchgate.net/publication/282590230_Rapid_and_efficient_image_restoration_technique_based_on_new_adaptive_anisotropic_diffusion_function">
+								Rapid and eﬃcient[…]</a>, Tebini et al.</figcaption></figure>
+							<figure><img src="Images/CahnHilliard_AsFem.gif"><figcaption>Phase separation using Cahn-Hilliard. Source: <a href="https://matmechlab.github.io/AsFem/">AsFem</a> by Yang Bai</figcaption></figure>
+						</div>
+					</section>
+					<section data-auto-animate>
+						<h2>Existing applications</h2>
+						<p>Has been cited in:</p>
+						<ul class="longlist">
+							<li>
+								<span class="title">Data-Driven Discovery of PDEs via the Adjoint Method</span>, ArXiv, 2024 <br>
+								Mohsen Sadr, Tony Tohme, Kamal Youcef-Toumi
+							</li>
+							<li>
+								<span class="title">Hierarchical deep learning-based adaptive time-stepping scheme for multiscale simulations</span>, Eng. Appl. Artif. Intell., 2023 <br>
+								Asif Hamid, Danish Rafiq, S. A. Nahvi, M. A. Bazaz
+							</li>
+							<li>
+								<span class="title">Learning of discrete models of variational PDEs from data</span>, Chaos, 2023 <br>
+								Christian Offen, Sina Ober-Blobaum
+							</li>
+							<li>
+								<span class="title">Machine learning of continuous and discrete variational ODEs with convergence guarantee and uncertainty quantification</span>, ArXiv, 2024 <br>
+								Christian Offen
+							</li>
+							<li>
+								<span class="title">Neural Operators Meet Energy-based Theory: Operator Learning for Hamiltonian and Dissipative PDEs</span>, ArXiv, 2024 <br>
+								Yusuke Tanaka, Takaharu Yaguchi, Tomoharu Iwata, N. Ueda
+							</li>
+							<li>
+								<span class="title">Pseudo-Hamiltonian system identification</span>, Journal of Computational Dynamics, 2023 <br>
+								Sigurd Holmsen, Sølve Eidnes, S. Riemer-Sørensen
+							</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<h2>Next steps</h2>
+					<ul class="wordylist">
+						<li>Examples in the Python package are generated, real-world data in different formats should be tried</li>
+						<li>More applications in general, and trying on a truly unknown system (or in double-blind condition)</li>
+						<li>Thus far limited to low-dimensional PDEs, authors plan to extend package for higher-dimensional PDEs</li>
+						<li>Sensitivity to initial training and robustness could be improved</li>
+						<li>Pseudo-Hamiltonian formulation could be tried in other ML models</li>
+						<li>Analogous knowledge-based priors could be incorporated into NN or other ML models</li>
+					</ul>
+					<aside class="notes">Examples in paper are 1- and 2-dim.[?]</aside>
 				</section>
 				<section>
 					<h1 id="sources">Sources and Further Reading</h1>
-					<ul id="linklist">
-						<li><span><span class="title">Hamiltonian Neural Networks</span>, <br> Greydanus, Dzamba, Yosinski (2019) <br> <a href="https://greydanus.github.io/2019/05/15/hamiltonian-nns/">https://greydanus.github.io/2019/05/15/hamiltonian-nns/</a></span><img class="qr-code" src="Images/HNN_qr-code.png" alt=""></li>
+					<ul class="linklist">
+						<li><span><span class="title">Hamiltonian Neural Networks</span>, <br> Greydanus, Dzamba, Yosinski (2019) <br> <a href="https://greydanus.github.io/2019/05/15/hamiltonian-nns/">https://greydanus.github.io/2019/05/15/hamiltonian-nns/</a></span><img class="qr-code" src="Images/HNN_qr-code.png"></li>
 
-						<li><span><span class="title">Pseudo-Hamiltonian Neural Networks with State-Dependent External Forces</span>, <br> Eidnes et al. (2023) <br> <a href="https://arxiv.org/pdf/2206.02660">https://arxiv.org/pdf/2206.02660</a> </span><img class="qr-code" src="Images/PHNN_qr-code.png" alt=""></li>
+						<li><span><span class="title">Pseudo-Hamiltonian Neural Networks with State-Dependent External Forces</span>, <br> Eidnes et al. (2023) <br> <a href="https://arxiv.org/pdf/2206.02660">https://arxiv.org/pdf/2206.02660</a> </span><img class="qr-code" src="Images/PHNN_qr-code.png"></li>
 
-						<li><span><span class="title">Pseudo-Hamiltonian Neural Networks for learning partial differential equations</span>, <br> Eidnes and Lye (2024) <br> <a href="https://arxiv.org/pdf/2304.14374">https://arxiv.org/pdf/2304.14374</a></span> <img class="qr-code" src="Images/PHNN4PDE_qr-code.png" alt=""></li>
+						<li><span><span class="title">Pseudo-Hamiltonian Neural Networks for learning partial differential equations</span>, <br> Eidnes and Lye (2024) <br> <a href="https://arxiv.org/pdf/2304.14374">https://arxiv.org/pdf/2304.14374</a></span> <img class="qr-code" src="Images/PHNN4PDE_qr-code.png"></li>
 
-						<li><span>phlearn Python package, <br> Sterud et al. (2023–4) <br> <a href="https://github.com/SINTEF/pseudo-hamiltonian-neural-networks">https://github.com/SINTEF/pseudo-hamiltonian-neural-networks</a></span><img class="qr-code" src="Images/phlearn_qr-code.png" alt=""></li>
-
-						<li><u>This presentation:</u></li>
+						<!-- <li><span>phlearn Python package, <br> Sterud et al. (2023–4) <br> <a href="https://github.com/SINTEF/pseudo-hamiltonian-neural-networks">https://github.com/SINTEF/pseudo-hamiltonian-neural-networks</a></span><img class="qr-code" src="Images/phlearn_qr-code.png"></li> -->
+					</ul>
+				</section>
+				<section>
+					<h1 id="finale">This presentation</h1>
+					<ul class="linklist">
+						<li><span>…was made with <a href="https://revealjs.com/">Reveal.js</a></span></li>
+						<li><span>…and can be found at: <a href="https://ertimidwainsworthy.github.io/PHNN_Presentation/PHNN_Presentation/">https://ertimidwainsworthy.github.io/PHNN_Presentation/PHNN_Presentation/</a></span></span><img class="qr-code" src="Images/presentation_qr-code.png"></li>
 					</ul>
 				</section>
 			</div>
@@ -195,7 +342,9 @@
 				hash: true,
 
 				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX, RevealManim ]
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX, RevealManim ],
+
+				totalTime: 1800
 			});
 		</script>
 	</body>
