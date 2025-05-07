@@ -93,7 +93,7 @@
 							<li>Convolutional layers resemble finite difference approximations</li>
 							<p class="fragment fade-up">Compare \((u*w)(x_i) \coloneqq \sum\limits_{j=-r}^s w_j u(x_{i-j})\) and \(\frac{d^n u(x_i)}{dx^n} \approx \sum\limits_{j=-r}^s a_j u(x_i-j)\)<br>(Eidnes & Lye)</p>
 						</ul>
-						<aside class="notes">With an appropriate NN, this allows us to learn PDEs and keep them physically plausible. Note: For convolution, $r,s\geq 0$</aside>
+						<aside class="notes">Convolution resemblance needed to guarantee approximation for infinite-dimensional systems. Together, an appropriate NN allows us to learn PDEs and keep them physically plausible. Note: For convolution, $r,s\geq 0$</aside>
 					</section>
 				</section>
 				<section>
@@ -344,7 +344,7 @@
 				// Learn about plugins: https://revealjs.com/plugins/
 				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX, RevealManim ],
 
-				totalTime: 1800
+				totalTime: 1800,
 			});
 		</script>
 	</body>

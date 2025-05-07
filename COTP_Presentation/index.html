@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Rekurrenzanalyse, kurzgesagt</title>
+
+		<link rel="stylesheet" href="../dist/reset.css">
+		<link rel="stylesheet" href="../dist/reveal.css">
+		<link rel="stylesheet" href="../dist/theme/serif.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="../plugin/highlight/monokai.css">
+
+		<link rel="stylesheet" href="../css/COTP_style.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section><h1><span>Simulation der Bahn eines Pendels durch Optimierung mit TAO</span></h1></section>
+				<section>
+					<section><h2>Problem & Ansatz</h2></section>
+					<section data-auto-animate>
+						<h3>Einfacher Pendel:</h3>
+						<div>
+							\[\begin{pmatrix}x_1 \\ y_1\end{pmatrix} = \begin{pmatrix}l_1 \sin(\varphi)\\ -l_1 \cos(\varphi) \end{pmatrix},\>\>\>
+							\begin{pmatrix}\dot{x_1} \\ \dot{y_1}\end{pmatrix} = l_1 \dot{\varphi}\begin{pmatrix}\cos(\varphi)\\ \sin(\varphi) \end{pmatrix}\]
+						</div>
+						<div>
+							\[T = \frac{m}{2}l_1^2\dot{\varphi}^2,\>\>\> V = mgl_1(1-cos(\varphi))\]
+						</div>
+						<div class="fragment">
+							$\Rightarrow \>\>$\(L = \frac{m}{2}l_1^2\dot{\varphi}^2 + mgl_1(1 - \cos(\varphi))\)
+						</div>
+					</section>
+					<section data-auto-animate>
+						<h3>Einfacher Pendel:</h3>
+						<div>
+							\(L = \frac{m}{2}l_1^2\dot{\varphi}^2 + mgl_1(1 - \cos(\varphi))\)
+						</div>
+						<div>
+							Randbedingungen: \[\varphi(0) = \varphi_0, \varphi(t_1) = \varphi_1,\] \[\dot{\varphi}(0) = 0,  \dot{\varphi}(t_1) = 0\]
+						</div>
+						<div>
+							Analytische Lösung:
+							\[\frac{d}{dt}\left(\frac{\partial L}{\partial \dot{\varphi}}\right) - \frac{\partial L}{\partial \varphi} = 0 \Rightarrow l_1^2 \ddot{\varphi} + gl_1 \sin(\varphi) = 0 \\ \Rightarrow \ddot{\varphi} = -\frac{g}{l_1} \sin(\varphi)\]
+						</div>
+					</section>
+					<section data-auto-animate>
+						<h3>Einfacher Pendel:</h3>
+						<div>
+							Analytische Lösung:
+							<p>Für kleinere Auslenkungen \(\varphi \ll 1\) ist \(\sin(\varphi) \approx \varphi\), also</p>
+							\[\ddot{\varphi} = -\frac{g}{l_1} \sin(\varphi) \approx -\frac{g}{l_1} \varphi, \>\> \varphi(0)=\varphi_0 \\ \Rightarrow \varphi(t) = \varphi_0 \cos(\sqrt{\frac{g}{l_1}}t) \]
+						</div>
+					</section>
+					<section data-auto-animate>
+						<h3>Einfacher Pendel:</h3>
+						<div>
+							Randbedingungen: \[\varphi(0) = \varphi_0, \varphi(t_1) = \varphi_1,\] \[\dot{\varphi}(0) = 0,  \dot{\varphi}(t_1) = 0\]
+						</div>
+						<div>
+							Analytische Lösung:
+							\[\varphi(t) = \varphi_0 \cos(\sqrt{\frac{g}{l_1}}t)\]
+						</div>
+						<div>
+							Wirkungsfunktional: \[S[\varphi(t)] = \int_0^{t_1} \mathrm{d}t \> \frac{m}{2}l_1^2\dot{\varphi}(t)^2 + mgl_1 (\cos(\varphi(t)) - 1)\]
+					</section>
+					<section>
+						<h3>Einsetzen in TAO:</h3>
+						<pre>
+							<code data-trim data-line-numbers="|16-22|29-41" data-ln-start-from="15">
+								static PetscErrorCode FormFunctionAndGradient(Tao tao, Vec X, PetscReal *f, Vec G, void *ctx)
+								{
+									const PetscScalar *x;
+									PetscScalar       *g;
+									PetscInt          n;
+
+									PetscCall(VecGetSize(X, &n));
+
+									AppCtx *user = (AppCtx *)ctx;
+									PetscScalar l = user->l;
+									PetscScalar dt = user->dt;
+
+									PetscCall(VecGetArrayRead(X, &x));
+									PetscCall(VecGetArray(G, &g));
+
+									*f = 0.0;
+									for (PetscInt i = 0; i < (n - 1); ++i) {
+										
+										*f += (l / (2 * dt * dt)) * (x[i + 1] - x[i]) * (x[i + 1] - x[i]) 
+												
+												+ 9.81 * (cos((x[i + 1] + x[i]) / 2) - 1);
+									}
+
+									if (PetscIsInfOrNanScalar(*f)) {
+									PetscPrintf(PETSC_COMM_WORLD, "Error: NaN or Inf in objective function: %g\n", *f);
+									return PETSC_ERR_USER;
+									}
+
+									g[0] = ((-1 * l) / (2 * dt * dt)) * (x[1] - x[0])
+
+												- 9.81 * sin((x[1] + x[0]) / 2);
+
+									for (PetscInt i = 1; i < (n - 1); ++i) {
+										
+										g[i] = ((-l) / (2 * dt * dt)) * (x[i + 1] - x[i]) 
+
+												- 9.81 * sin((x[i + 1] + x[i]) / 2)
+
+												- 9.81 * sin((x[i] + x[i - 1]) / 2) 
+												
+												+ (l / (2 * dt * dt)) * (x[i] - x[i - 1]); 
+
+
+										if (PetscIsInfOrNanScalar(g[i])) {
+											PetscPrintf(PETSC_COMM_WORLD, "Error: NaN or Inf in gradient at index %d: %g\n", i, g[i]);
+											return PETSC_ERR_USER;
+										}
+									}
+
+									g[n - 1] = (l / (2 * dt * dt)) * (x[n - 1] - x[n - 2])
+									
+												- 9.81 * sin((x[n - 1] + x[n - 2]) / 2);
+
+									PetscCall(VecRestoreArrayRead(X, &x));
+									PetscCall(VecRestoreArray(G, &g));
+
+									return 0;
+								}
+							</code>
+						</pre>
+					</section>
+				</section>
+				<section><h2>Prozess</h2></section>
+				<section><h2>Schwierigkeiten & Lösungen</h2></section>
+				<section><h2>Mögliche Erweiterungen</h2></section>
+				<section>
+					<section data-auto-animate>
+						<h3>Dynamische Systeme</h3>
+						<ul>
+							<li class="fragment">Unterschiedliche Verhältnisse: stabil, periodisch, chaotisch</li>
+							<li class="fragment">Klassifizierung und bzw. Quantifizierung oft erwünscht</li>
+							<li class="fragment">"Rückwärts-Problem", d.h. Systemidentifikation, Dynamik von Daten</li>
+						</ul>
+						<aside class="notes">
+							n.B. "stabil" bedeutet hier etwa 'in der Nähe eines stabiles Punkts'; echte Fixpunkte ohne externer Wirkung bleiben im Punkt. Erstmals grob und informel hier ausgedruckt.
+						</aside>
+					</section>
+					<section data-auto-animate>
+						<h3>Dynamische Systeme</h3>
+						<h4>Maße und analytische Ansätze:</h4>
+						<ul>
+							<li class="fragment">Lyapunov-Exponent</li>
+							<li class="fragment">Hurst-Exponent</li>
+							<li class="fragment">Korrelationsdimension</li>
+							<li class="fragment">Poincaré-Abbildung</li>
+							<li class="fragment">Liang-Kleeman Informationsfluss</li>
+						</ul>
+						<aside class="notes">
+							
+						</aside>
+					</section>
+				</section>
+				<section> 
+					<section data-auto-animate>
+						<h3>Rekurrenz-Quantifizierungsanalyse (RQA)</h3>
+						<p>Entwickelt im 1992 von Zbilut & Weber<span class="annotation"><sup></sup></span></p>
+						<p>Messt die Rekurrenz eines Systems im Phasenraum unter einem bestimmten Schwellenparameter $\varepsilon$</p>
+						<p class="fragment">Dazu stellen wir eine Binärmatrix $R$ auf, was visuell als ein Plot betrachtet werden kann (Rekurrenzplot)</p>
+						<div class="footnotes">
+							<ul>
+								<li class="footnote"><span>Zbilut, Weber, "Embeddings and delays as derived from quantification of recurrence plots"</span></li>
+							</ul>
+						</div>
+						<aside class="notes"></aside>
+					</section>
+					<section data-auto-animate>
+						<h3>Rekurrenz-Quantifizierungsanalyse (RQA)</h3>
+						<p>Dazu stellen wir eine Binärmatrix $R$ auf, was visuell als ein Plot betrachtet werden kann (Rekurrenzplot)</p>
+						<p class="fragment">Für eine Norm auf Phasenraum $\lVert \cdot \rVert$ (z.B. eukl., $\mathbb{R}^n$) def.
+							\[R_{ij}\coloneqq \begin{cases} 1 &\text{if } \lVert x_i-x_j\rVert \leq \varepsilon \\ 0 &\text{if } \lVert x_i-x_j\rVert > \varepsilon \end{cases}\]</p>
+						<aside class="notes"></aside>
+					</section>
+					<section data-auto-animate>
+						<h3>Rekurrenz-Quantifizierungsanalyse (RQA)</h3>
+						<p>Für eine Norm auf Phasenraum $\lVert \cdot \rVert$ (z.B. eukl., $\mathbb{R}^n$) def.
+							\[R_{ij}\coloneqq \begin{cases} 1 &\text{if } \lVert x_i-x_j\rVert \leq \varepsilon \\ 0 &\text{if } \lVert x_i-x_j\rVert > \varepsilon \end{cases}\]</p>
+						<figure></figure>
+						<aside class="notes"></aside>
+					</section>
+				</section>
+				<section>
+					<section>
+						<div style="columns: 2">
+							<ul>Vorteile:
+								<li class="fragment">Einfach zu berechnen</li>
+								<li class="fragment">Viele Maße können in $\mathcal{O}(n \log(n))$ oder $\mathcal{O}(n)$ approximiert werden<span class="annotation"><sup></sup></span></li>
+								<li><span class="annotation"><sup></sup></span></li>
+							</ul>
+							<ul>Nachteile:
+								<li class="fragment">Matrix $\Rightarrow \mathcal{O}(n^2)$ Berechnungszeit</li>
+							</ul>
+						</div>
+						<div class="footnotes">
+							<ul>
+								<li class="footnote"><span>Schultz, Spiegel, Marwan, Albayrak, "Approximation of diagonal line based measures in recurrence quantification analysis"</span></li>
+								<li></li>
+							</ul>
+						</div>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h3>Mikrozustände</h3>
+						<p>Für ein $m < n$ (aber i.d.R. $m \ll n$, z.B. 2, 3) wähle $m \times m$ Abschnitt von $R$</p>
+					</section>
+					<section>
+						<h3>Event-Serien</h3>
+						<p>Für Ereignisse mit Binärzuständen (Klimakatastrophen, Aktionspotentiale), direkte RQA nicht geeignet; Ansätze mit unterschiedlichen Metriken (z.B. Editierdistanz) versuchen die Methode dafür zu erweitern</p>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Forschung am PIK</h2>
+						<ul> z.B.:
+							<li>Marwan, "Challenges and perspectives in recurrence analysis of event time series", Frontiers in Applied Mathematics & Statistics, 2023</li>
+							<li>Marwan & Braun, "Power spectral estimate for discrete Data", Chaos, 2023</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h3 data-auto-animate>Mögliche Forschungsfragen:</h3>
+						<ul>
+							<li class="fragment">Optimierung: kluges (kleines) Sampling, Implikationen herausleiten</li>
+							<li class="fragment">Datensensibilität, insb. für Event-Serien: aus geringen Daten, fehlende ausgleichen oder Qualifikationen trotzdem</li>
+							<li class="fragment">Event-Serien: bester Ansatz, kann man Editierdistanz retten?</li>
+							<li class="fragment">'Hoch'-iterieren: analyse auf Mikrozustände anwenden</li>
+						</ul>
+					</section>
+					<section>
+						<h3 data-auto-animate>Mögliche Forschungsfragen:</h3>
+						<ul> Event-Serien
+							<li class="fragment">Ideale Wahl des Zeitfensters</li>
+							<li class="fragment">Qualifizierungen unter verschiedenen Zeitfenstern simultan</li>
+							<li class="fragment">Untersuche Directed Coupling mit verschiedenen Fenstern</li>
+							<li class="fragment">Analogon zu Alias Effect hier?</li>
+							<li class="fragment">Kann man dabei eine Beziehung zu anderen Strukturen formalisieren, um bekannte Aussage anzuwenden?</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<h1 id="sources">Sources and Further Reading</h1>
+					<ul class="linklist">
+						<li><span><span class="title">Hamiltonian Neural Networks</span>, <br> Greydanus, Dzamba, Yosinski (2019) <br> <a href="https://greydanus.github.io/2019/05/15/hamiltonian-nns/">https://greydanus.github.io/2019/05/15/hamiltonian-nns/</a></span><img class="qr-code" src="Images/HNN_qr-code.png"></li>
+
+						<li><span><span class="title">Pseudo-Hamiltonian Neural Networks with State-Dependent External Forces</span>, <br> Eidnes et al. (2023) <br> <a href="https://arxiv.org/pdf/2206.02660">https://arxiv.org/pdf/2206.02660</a> </span><img class="qr-code" src="Images/PHNN_qr-code.png"></li>
+
+						<li><span><span class="title">Pseudo-Hamiltonian Neural Networks for learning partial differential equations</span>, <br> Eidnes and Lye (2024) <br> <a href="https://arxiv.org/pdf/2304.14374">https://arxiv.org/pdf/2304.14374</a></span> <img class="qr-code" src="Images/PHNN4PDE_qr-code.png"></li>
+
+						<!-- <li><span>phlearn Python package, <br> Sterud et al. (2023–4) <br> <a href="https://github.com/SINTEF/pseudo-hamiltonian-neural-networks">https://github.com/SINTEF/pseudo-hamiltonian-neural-networks</a></span><img class="qr-code" src="Images/phlearn_qr-code.png"></li> -->
+					</ul>
+				</section>
+				<section>
+					<h1 id="finale">This presentation</h1>
+					<ul class="linklist">
+						<li><span>…was made with <a href="https://revealjs.com/">Reveal.js</a></span></li>
+						<li><span>…and can be found at: <a href="https://ertimidwainsworthy.github.io/PHNN_Presentation/PHNN_Presentation/">https://ertimidwainsworthy.github.io/PHNN_Presentation/PHNN_Presentation/</a></span></span><img class="qr-code" src="Images/presentation_qr-code.png"></li>
+					</ul>
+				</section>
+			</div>
+		</div>
+
+		<script src="../dist/reveal.js"></script>
+		<script src="../plugin/notes/notes.js"></script>
+		<script src="../plugin/markdown/markdown.js"></script>
+		<script src="../plugin/highlight/highlight.js"></script>
+		<script src="../plugin/math/math.js"></script>
+		<script src="../plugin/manim/manim.js"></script>
+		<script src="../plugin/counteract/counteract.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX, RevealManim, CounterAct],
+
+				totalTime: 900,
+
+				counteract: {
+					counters: [
+					{
+						name: 'annotations',
+						selector: '.annotation sup',
+						increment: '.annotation'
+					},
+					{
+						name: 'footnotes',
+						selector: '.footnotes .footnote span',
+						increment: '.footnotes .footnote'
+					},
+					{
+						name: 'endnotes',
+						selector: '.endnote span',
+						increment: '.endnote'
+					}
+				]
+				}
+			});
+		</script>
+	</body>
+</html>

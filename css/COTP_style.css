@@ -1,0 +1,276 @@
+html {
+}
+
+div {
+	color: darkslategray !important;
+	background-color: azure !important;
+	--r-main-font-size: 2rem !important;
+}
+
+h1 {
+	font-size: 5rem !important;
+	color: darkblue !important;
+}
+
+h2{
+	font-size: 4rem !important;
+	color: cadetblue !important;
+}
+
+h3 {
+	color: royalblue !important;
+}
+
+h4 {
+	color: slategray !important;
+}
+
+figure {
+}
+
+figure > img {
+	
+}
+
+figcaption {
+	text-align: center;
+	font-size: medium;
+}
+
+iframe {
+	width: 100%;
+	height: 500px;
+	border: solid;
+	overflow: scroll;
+}
+
+/*For automatically numbered annotations:*/
+sup::after {
+	content: attr(data-count-annotations);
+}
+
+.footnotes {
+	font-size: small;
+}
+
+.footnotes ul {
+	list-style-type: none;
+}
+
+.footnotes span::before {
+	content: attr(data-count-footnotes) " ";
+}
+
+.fit_equation {
+	width: 100%;
+	font-size: .7em;
+}
+*:has(> .fit_equation) {
+	width: 100%;
+	white-space: nowrap;
+}
+
+.title {
+	font-style: italic;
+}
+
+.subtitle {
+	font-size: 3rem;
+}
+
+.equation_box {
+	width: 100%;
+	padding: .5em;
+	border: solid;
+}
+
+.algorithmic, .algorithmic > li {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	font-size: large;
+}
+
+.double-figure {
+	display: flex;
+}
+
+.double-figure > figure {
+	height: 200px;
+}
+
+.wordylist {
+	font-size: .7em;
+}
+
+.wordylist > li {
+	margin: .2em;
+}
+
+.longlist {
+	font-size: large;
+}
+
+.linklist > li {
+	display: flex;
+	justify-content: space-between;
+	vertical-align: middle;
+}
+
+.qr-code {
+	right: 10vw;
+	height: 20vh;
+	margin: 0;
+	padding: 0;
+}
+
+#pde_eq {
+	font-size: .8em;
+}
+
+#sources {
+	font-size: larger !important;
+}
+
+#finale {
+	font-size:1.5em !important;
+}
+
+.linklist {
+	width: 100%;
+	font-size: x-large;
+}
+
+.reveal .slides section .fragment.underline {
+	opacity: 1;
+	visibility: visible;
+	color: inherit;
+	text-decoration: none;
+	background: linear-gradient(currentColor, currentColor) 0% 100% no-repeat;
+	background-size: 0% 2px;
+	transition: background-size .3s linear;
+}
+
+.reveal .slides section .fragment.underline.visible {
+	background-size: 100% 2px;
+}
+
+.reveal .slides section .fragment.underline-blue {
+	opacity: 1;
+	visibility: visible;
+	color: inherit;
+	text-decoration: none;
+	background: linear-gradient(MidnightBlue, Midnightblue) 0% 100% no-repeat;
+	background-size: 0% 2px;
+	transition: background-size .3s linear;
+}
+
+.reveal .slides section .fragment.underline-blue.visible {
+	background-size: 100% 2px;
+}
+
+.reveal .slides section .fragment.underline-red {
+	opacity: 1;
+	visibility: visible;
+	color: inherit;
+	text-decoration: none;
+	background: linear-gradient(Maroon, Maroon) 0% 100% no-repeat;
+	background-size: 0% 2px;
+	transition: background-size .3s linear;
+}
+
+.reveal .slides section .fragment.underline-red.visible {
+	background-size: 100% 2px;
+}
+
+.reveal .slides section .fragment.underline-green {
+	opacity: 1;
+	visibility: visible;
+	color: inherit;
+	text-decoration: none;
+	background: linear-gradient(SeaGreen, SeaGreen) 0% 100% no-repeat;
+	background-size: 0% 2px;
+	transition: background-size .3s linear;
+}
+
+.reveal .slides section .fragment.underline-green.visible {
+	background-size: 100% 2px;
+}
+
+.reveal .slides section .fragment.underline-yellow {
+	opacity: 1;
+	visibility: visible;
+	color: inherit;
+	text-decoration: none;
+	background: linear-gradient(GoldenRod, GoldenRod) 0% 100% no-repeat;
+	background-size: 0% 2px;
+	transition: background-size .3s linear;
+}
+
+.reveal .slides section .fragment.underline-yellow.visible {
+	background-size: 100% 2px;
+}
+
+.reveal .slides section .fragment.insertion {
+	display: inline-block;
+	margin: 0;
+	vertical-align: bottom;
+	max-width: 0%;
+	opacity: 0;
+	visibility: visible;
+	overflow: hidden;
+	white-space: nowrap;
+	transition: max-width opacity .3s linear;
+}
+
+.reveal .slides section .fragment.insertion.visible {
+	opacity: 1;
+	max-width: 30%;
+}
+
+.reveal .slides section .fragment.omission {
+	display: inline-block;
+	margin: 0;
+	vertical-align: bottom;
+	max-width: 30%;
+	opacity: 1;
+	visibility: visible;
+	overflow: hidden;
+	white-space: nowrap;
+	transition: max-width opacity .3s linear;
+}
+
+.reveal .slides section .fragment.omission.visible {
+	opacity: 0;
+	max-width: 0%;
+}
+
+.reveal .slides section .fragment.insertion-wide {
+	margin: 0;
+	padding: 0;
+	max-height: 0;
+	opacity: 0;
+	visibility: visible;
+	overflow: hidden;
+	white-space: nowrap;
+	transition: max-height opacity 1s linear;
+}
+
+.reveal .slides section .fragment.insertion-wide.current-fragment {
+	opacity: 1;
+	max-height: 30%;
+}
+
+.reveal .slides section .fragment.omission-wide {
+	max-height: 30%;
+	opacity: 1;
+	visibility: visible;
+	overflow: hidden;
+	white-space: nowrap;
+	transition: max-height opacity 1s linear;
+}
+
+.reveal .slides section .fragment.omission-wide.visible {
+	opacity: 0;
+	max-height: 0;	
+}

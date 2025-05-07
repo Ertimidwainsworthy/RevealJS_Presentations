@@ -16,6 +16,10 @@ h3 {
 	color: MidnightBlue !important;
 }
 
+h4 {
+	color: MidnightBlue !important;
+}
+
 figure {
 }
 
@@ -33,6 +37,23 @@ iframe {
 	height: 500px;
 	border: solid;
 	overflow: scroll;
+}
+
+/*For automatically numbered annotations:*/
+sup::after {
+	content: attr(data-count-annotations);
+}
+
+.footnotes {
+	font-size: small;
+}
+
+.footnotes ul {
+	list-style-type: none;
+}
+
+.footnotes span::before {
+	content: attr(data-count-footnotes) " ";
 }
 
 .fit_equation {
