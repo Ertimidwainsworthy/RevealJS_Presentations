@@ -1,3 +1,13 @@
+<h2>List of presentations:</h2>
+<p>A presentation on the 2024 paper "Pseudo-Hamiltonian Neural Networks for Partial Differential Equations" by Eidnes & Lye, presented as part of the TU Berlin Summer 2024 Control Theory & Optimisation Seminar. Made with Reveal.js.</p>
+<p><a href="PHNN_Presentation/index.html">To PHNN Presentation</a></p>
+
+<p>A presentation on recurrence analysis and metrics for event series, the background to my Bachelor's thesis</p>
+<p>To the Event Series Metrics Presentation: <a href="Event-series_metrics_Presentation/de.html">in German</a>; <a href="Event-series_metrics_Presentation/en.html">in English</a></p>
+
+
+<h3>Reveal.js</h3>
+
 <p align="center">
   <a href="https://revealjs.com">
   <img src="https://hakim-static.s3.amazonaws.com/reveal-js/logo/v1/reveal-black-text-sticker.png" alt="reveal.js" width="500">
@@ -11,20 +21,6 @@ reveal.js is an open source HTML presentation framework. It enables anyone with 
 
 The framework comes with a powerful feature set including [nested slides](https://revealjs.com/vertical-slides/), [Markdown support](https://revealjs.com/markdown/), [Auto-Animate](https://revealjs.com/auto-animate/), [PDF export](https://revealjs.com/pdf-export/), [speaker notes](https://revealjs.com/speaker-view/), [LaTeX typesetting](https://revealjs.com/math/), [syntax highlighted code](https://revealjs.com/code/) and an [extensive API](https://revealjs.com/api/).
 
----
-
-Want to create reveal.js presentation in a graphical editor? Try <https://slides.com>. It's made by the same people behind reveal.js.
-
----
-
-### Getting started
-- 🚀 [Install reveal.js](https://revealjs.com/installation)
-- 👀 [View the demo presentation](https://revealjs.com/demo)
-- 📖 [Read the documentation](https://revealjs.com/markup/)
-- 🖌 [Try the visual editor for reveal.js at Slides.com](https://slides.com/)
-- 🎬 [Watch the reveal.js video course (paid)](https://revealjs.com/course)
-
---- 
 <div align="center">
   MIT licensed | Copyright © 2011-2024 Hakim El Hattab, https://hakim.se
 </div>
